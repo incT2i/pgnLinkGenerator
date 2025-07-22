@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Link Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .round-block { margin-bottom: 20px; }
+    textarea { width: 100%; height: 60px; }
+  </style>
+</head>
+<body>
+  <h2>🎯 Generate Round/Game Links</h2>
+
+  <label>Base URL:</label><br>
+  <input type="text" id="baseUrl" placeholder="Enter base URL"><br><br>
+
+  <label>Number of Rounds:</label>
+  <input type="number" id="rounds" min="1"><br><br>
+
+  <label>Games per Round:</label>
+  <input type="number" id="games" min="1"><br><br>
+
+  <button onclick="generateLinks()">Generate</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateLinks() {
+      const baseUrl = document.getElementById("baseUrl").value;
+      const rounds = parseInt(document.getElementById("rounds").value);
+      const games = parseInt(document.getElementById("games").value);
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "";
+
+      for (let r = 1; r <= rounds; r++) {
+        let links = "";
+        for (let g = 1; g <= games; g++) {
+          links += `${baseUrl}round-${r}/game-${g}\n`;
+        }
+
+        const block = document.createElement("div");
+        block.className = "round-block";
+        block.innerHTML = `<h4>Round ${r}</h4><textarea readonly>${links.trim()}</textarea>`;
+        outputDiv.appendChild(block);
+      }
+    }
+  </script>
+</body>
+</html>
