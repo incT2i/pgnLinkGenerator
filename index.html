@@ -4,13 +4,20 @@
   <meta charset="UTF-8">
   <title>Link Generator</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .round-block { margin-bottom: 20px; }
-    textarea { width: 100%; height: 60px; }
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; color: #333; }
+    h2 { color: #4CAF50; }
+    label { font-weight: bold; }
+    input, button, textarea { margin: 5px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    input:focus, textarea:focus { border-color: #4CAF50; outline: none; }
+    button { background-color: #4CAF50; color: white; cursor: pointer; }
+    button:hover { background-color: #45a049; }
+    .round-block { margin-bottom: 20px; display: flex; align-items: center; }
+    textarea { width: 100%; height: 20px; resize: none; }
+    button.copy-btn { margin-left: 10px; }
   </style>
 </head>
 <body>
-  <h2>🎯 Generate Round/Game Links</h2>
+  <h2>Generate Round & Game Links</h2>
 
   <label>Base URL:</label><br>
   <input type="text" id="baseUrl" placeholder="Enter base URL"><br><br>
@@ -36,14 +43,21 @@
       for (let r = 1; r <= rounds; r++) {
         let links = "";
         for (let g = 1; g <= games; g++) {
-          links += `${baseUrl}round-${r}/game-${g}\n`;
+          links += `${baseUrl}round-${r}/game-${g}
+`;
         }
 
         const block = document.createElement("div");
         block.className = "round-block";
-        block.innerHTML = `<h4>Round ${r}</h4><textarea readonly>${links.trim()}</textarea>`;
+        block.innerHTML = `<h4>Round ${r}</h4><textarea readonly>${links.trim()}</textarea><button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>`;
         outputDiv.appendChild(block);
       }
+    }
+
+    function copyToClipboard(button) {
+      const textarea = button.previousElementSibling;
+      textarea.select();
+      document.execCommand("copy");
     }
   </script>
 </body>
