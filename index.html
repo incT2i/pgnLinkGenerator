@@ -49,7 +49,7 @@
 
         const block = document.createElement("div");
         block.className = "round-block";
-        block.innerHTML = `<h4>Round ${r}</h4><textarea readonly>${links.trim()}</textarea><button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>`;
+        block.innerHTML = ` <h4>Round ${r}</h4> <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button> <textarea readonly>${links.trim()}</textarea> `;
         outputDiv.appendChild(block);
       }
     }
