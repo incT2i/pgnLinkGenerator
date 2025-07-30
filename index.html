@@ -43,20 +43,36 @@
       for (let r = 1; r <= rounds; r++) {
         let links = "";
         for (let g = 1; g <= games; g++) {
-          links += `${baseUrl}round-${r}/game-${g}.pgn
-`;
+          links += `${baseUrl}round-${r}/game-${g}.pgn\n`;
         }
 
         const block = document.createElement("div");
         block.className = "round-block";
-        block.innerHTML = ` <h4>Round ${r}</h4> <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button> <textarea readonly>${links.trim()}</textarea> `;
+        
+        // Create elements separately
+        const header = document.createElement("h4");
+        header.textContent = `Round ${r}`;
+        
+        const copyButton = document.createElement("button");
+        copyButton.className = "copy-btn";
+        copyButton.textContent = "Copy";
+        copyButton.onclick = function() { copyToClipboard(textarea); };
+
+        const textarea = document.createElement("textarea");
+        textarea.readOnly = true;
+        textarea.value = links.trim();
+
+        // Append elements to the block
+        block.appendChild(header);
+        block.appendChild(copyButton);
+        block.appendChild(textarea);
         outputDiv.appendChild(block);
       }
     }
 
-    function copyToClipboard(button) {
-      const textarea = button.previousElementSibling;
+    function copyToClipboard(textarea) {
       textarea.select();
+      textarea.setSelectionRange(0, 99999); // For mobile devices
       document.execCommand("copy");
     }
   </script>
